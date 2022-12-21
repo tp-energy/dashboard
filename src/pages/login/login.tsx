@@ -1,15 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import styles from "./loginForm.module.scss";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { auth } from "../../firebase";
 
 const App: React.FC = () => {
+  useEffect(() => {
+    return onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is signed in", user);
+      } else {
+        console.log("User is signed out");
+      }
+    });
+  }, []);
+
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
+    signInWithEmailAndPassword(auth, values.username, values.password)
+      .then((cred) => {
+        console.log("Sign in successful", cred);
+      })
+      .catch((err) => {
+        console.log("Sign in failed", err);
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  function handleLogout() {
+    signOut(auth)
+      .then(() => {
+        console.log("Sign out successful");
+      })
+      .catch((err) => {
+        console.log("Sign out failed", err);
+      });
+  }
 
   return (
     <Form
@@ -51,8 +85,9 @@ const App: React.FC = () => {
           Submit
         </Button>
       </Form.Item>
+      {/* <Button type="primary" onClick={handleLogout}>
+        Log Out
+      </Button> */}
     </Form>
   );
 };
-
-export default App;
