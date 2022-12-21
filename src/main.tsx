@@ -1,12 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createHashRouter,
+} from "react-router-dom";
+import LoginForm from "./pages/login/loginForm";
+import "./index.css";
+import "./reset.css";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
+  },
+  {
+    path: "/login",
+    element: <LoginForm />,
   },
 ]);
 
