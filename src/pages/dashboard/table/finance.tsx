@@ -5,7 +5,13 @@ import {
   ProFormField,
   ProFormRadio,
 } from "@ant-design/pro-components";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../../../firebase";
 
@@ -101,6 +107,10 @@ export default () => {
           key="delete"
           onClick={() => {
             setDataSource(dataSource.filter((item) => item.id !== record.id));
+            const docRef = doc(db, "finance-data", record.id.toString());
+            deleteDoc(docRef).then(() => {
+              console.log("Document successfully deleted!");
+            });
           }}
         >
           删除
