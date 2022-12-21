@@ -10,6 +10,7 @@ import { PageContainer, ProLayout } from "@ant-design/pro-layout";
 import { Button, Input } from "antd";
 import { useState } from "react";
 import defaultProps from "./_defaultProps";
+import Finance from "./table/finance";
 
 export default () => {
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
@@ -113,6 +114,7 @@ export default () => {
         <a
           onClick={() => {
             setPathname(item.path || "/welcome");
+            // console.log(item, dom)
           }}
         >
           {dom}
@@ -140,7 +142,12 @@ export default () => {
             minHeight: 800,
           }}
         >
-          <div />
+          <>
+          {pathname==="/list/stakeholders/finance" && <Finance/>}
+          {pathname==="/list/stakeholders/meeting" && <Finance/>}
+          {pathname==="/list/stakeholders/meeting-members" && <Finance/>}
+          
+          </>
         </ProCard>
       </PageContainer>
     </ProLayout>

@@ -3,7 +3,7 @@ import React from "react";
 import { auth } from "../../firebase";
 import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
-import Finance from "./ListTableList/finance";
+import Finance from "./table/finance";
 import Layout from "./layout";
 
 type Props = {};

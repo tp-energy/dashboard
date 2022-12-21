@@ -44,42 +44,42 @@ export default {
         component: './ListTableList',
         routes: [
           {
-            path: '/list/sub-page',
+            path: '/list/stakeholders',
             name: '投資人專區',
             icon: <CrownFilled />,
             routes: [
               {
-                path: 'sub-sub-page1',
+                path: 'finance',
                 name: '財務資訊',
                 icon: <CrownFilled />,
                 component: './Welcome',
               },
               {
-                path: 'sub-sub-page2',
-                name: '一二级列表页面',
+                path: 'meeting',
+                name: '股東會資訊',
                 icon: <CrownFilled />,
                 component: './Welcome',
               },
               {
-                path: 'sub-sub-page3',
-                name: '一三级列表页面',
+                path: 'meeting-members',
+                name: '主要股東名單',
                 icon: <CrownFilled />,
                 component: './Welcome',
               },
             ],
           },
-          {
-            path: '/list/sub-page2',
-            name: '二级列表页面',
-            icon: <CrownFilled />,
-            component: './Welcome',
-          },
-          {
-            path: '/list/sub-page3',
-            name: '三级列表页面',
-            icon: <CrownFilled />,
-            component: './Welcome',
-          },
+          // {
+          //   path: '/list/sub-page2',
+          //   name: '二级列表页面',
+          //   icon: <CrownFilled />,
+          //   component: './Welcome',
+          // },
+          // {
+          //   path: '/list/sub-page3',
+          //   name: '三级列表页面',
+          //   icon: <CrownFilled />,
+          //   component: './Welcome',
+          // },
         ],
       },
       {
