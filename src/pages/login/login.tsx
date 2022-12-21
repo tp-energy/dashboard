@@ -2,18 +2,23 @@ import React, { useEffect } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import styles from "./loginForm.module.scss";
 import {
-  createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase";
+import { useNavigate } from 'react-router-dom';
 
 const App: React.FC = () => {
+
+  const navigate = useNavigate();
+
+  // check user state
   useEffect(() => {
     return onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("User is signed in", user);
+        navigate("/dashboard");
       } else {
         console.log("User is signed out");
       }
@@ -85,9 +90,11 @@ const App: React.FC = () => {
           Submit
         </Button>
       </Form.Item>
-      {/* <Button type="primary" onClick={handleLogout}>
+      <Button type="primary" onClick={handleLogout}>
         Log Out
-      </Button> */}
+      </Button>
     </Form>
   );
 };
+
+export default App;

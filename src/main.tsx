@@ -9,6 +9,7 @@ import {
 import LoginForm from "./pages/login/loginForm";
 import "./index.css";
 import "./reset.css";
+import Dashboard from "./pages/dashboard/dashboard";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginForm />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 ]);
 
