@@ -86,6 +86,7 @@ export default () => {
     },
     {
       title: "檔案連結",
+      tooltip: "如果使用 google drive, 請用連結網站將分享用的網址轉換成直接下載用的網址 https://sites.google.com/site/gdocs2direct/",
       valueType: "text",
       key: "url",
       dataIndex: "url",
