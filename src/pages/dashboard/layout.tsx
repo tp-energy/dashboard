@@ -11,9 +11,21 @@ import { Button, Input } from "antd";
 import { useState } from "react";
 import defaultProps from "./_defaultProps";
 import Finance from "./table/finance";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 export default () => {
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
+
+  function handleLogout() {
+    signOut(auth)
+      .then(() => {
+        console.log("Sign out successful");
+      })
+      .catch((err) => {
+        console.log("Sign out failed", err);
+      });
+  }
 
   return (
     <ProLayout
@@ -125,8 +137,8 @@ export default () => {
         extra={[
           <Button key="3">操作</Button>,
           <Button key="2">操作</Button>,
-          <Button key="1" type="primary">
-            主操作
+          <Button type="primary" key="1" onClick={handleLogout}>
+            登出
           </Button>,
         ]}
         // footer={[
@@ -143,10 +155,9 @@ export default () => {
           }}
         >
           <>
-          {pathname==="/list/stakeholders/finance" && <Finance/>}
-          {pathname==="/list/stakeholders/meeting" && <Finance/>}
-          {pathname==="/list/stakeholders/meeting-members" && <Finance/>}
-          
+            {pathname === "/list/stakeholders/finance" && <Finance />}
+            {pathname === "/list/stakeholders/meeting" && <Finance />}
+            {pathname === "/list/stakeholders/meeting-members" && <Finance />}
           </>
         </ProCard>
       </PageContainer>

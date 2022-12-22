@@ -5,9 +5,11 @@ import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import Finance from "./table/finance";
 import Layout from "./layout";
+import { ConfigProvider } from "antd";
+import zhTW from "antd/locale/zh_TW";
 
 type Props = {};
-
+ 
 export default function dashboard({}: Props) {
   const navigate = useNavigate();
 
@@ -23,8 +25,8 @@ export default function dashboard({}: Props) {
   }, []);
 
   return (
-    <>
-      <Layout/>
-    </>
+    <ConfigProvider locale={zhTW}>
+      <Layout />
+    </ConfigProvider>
   );
-}
+} 

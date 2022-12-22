@@ -7,10 +7,9 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const App: React.FC = () => {
-
   const navigate = useNavigate();
 
   // check user state
@@ -25,30 +24,33 @@ const App: React.FC = () => {
     });
   }, []);
 
+  // display error message
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
   const onFinish = (values: any) => {
     // console.log("Success:", values);
-    signInWithEmailAndPassword(auth, values.username, values.password)
+    signInWithEmailAndPassword(auth, values.email, values.password)
       .then((cred) => {
-        console.log("Sign in successful", cred);
+        // console.log("Sign in successful", cred);
       })
       .catch((err) => {
-        console.log("Sign in failed", err);
+        const errMsg = err.toString();
+        if (errMsg.includes("invalid-email")) {
+          setErrorMessage("信箱格式錯誤");
+        }
+        if (errMsg.toString().includes("user-not-found")) {
+          setErrorMessage("無此用戶");
+        }
+        if (errMsg.toString().includes("wrong-password")) {
+          setErrorMessage("密碼錯誤");
+        }
+        // console.log("Sign in failed", err);
       });
   };
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
-
-  function handleLogout() {
-    signOut(auth)
-      .then(() => {
-        console.log("Sign out successful");
-      })
-      .catch((err) => {
-        console.log("Sign out failed", err);
-      });
-  }
 
   return (
     <Form
@@ -62,37 +64,36 @@ const App: React.FC = () => {
       className={styles.login}
     >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        label="信箱"
+        name="email"
+        rules={[{ required: true, message: "請輸入登入用信箱" }]}
+        className={styles.loginLabel}
       >
-        <Input />
+        <Input className={styles.loginInput} />
       </Form.Item>
 
       <Form.Item
-        label="Password"
+        label="密碼"
         name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
+        rules={[{ required: true, message: "請輸入密碼" }]}
+        className={styles.loginLabel}
       >
-        <Input.Password />
+        <Input.Password className={styles.loginInput} />
       </Form.Item>
 
-      <Form.Item
+      {/* <Form.Item
         name="remember"
         valuePropName="checked"
         wrapperCol={{ offset: 8, span: 16 }}
       >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
+        <Checkbox>記住我</Checkbox>
+      </Form.Item> */}
+      <div className={styles.error}>{errorMessage}</div>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          登入
         </Button>
       </Form.Item>
-      <Button type="primary" onClick={handleLogout}>
-        Log Out
-      </Button>
     </Form>
   );
 };

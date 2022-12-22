@@ -25,9 +25,9 @@ const waitTime = (time: number = 100) => {
 
 type DataSourceType = {
   id: React.Key;
-  year?: number;
-  quarter?: string;
-  url?: string;
+  year: number;
+  quarter: string;
+  url: string;
 };
 
 const querySnapshot = await getDocs(collection(db, "finance-data"));
@@ -35,36 +35,48 @@ const querySnapshot = await getDocs(collection(db, "finance-data"));
 const defaultData: DataSourceType[] = [];
 
 querySnapshot.forEach((doc) => {
-  defaultData.push({ ...doc.data(), id: doc.id });
+  defaultData.push({
+    ...(doc.data() as { year: number; quarter: string; url: string }),
+    id: doc.id as React.Key,
+  });
 });
 
-// [
-//   {
-//     id: 0,
-//     year: 107,
-//     title: "Q1",
-//     source:
-//       "https://drive.google.com/uc?export=download&id=1pmNySLD38ZKCmGu0_MXinsdMI-DI1LSP",
-//   },
-// ];
-
 export default () => {
+  function handleDelete(id: string) {
+    const docRef = doc(db, "finance-data", id);
+    deleteDoc(docRef).then(() => {
+      console.log("Document successfully deleted!");
+    });
+  }
+
+  function handleAdd(rowKey: any, data: any, row: any) {
+    addDoc(collection(db, "finance-data"), {
+      ...data,
+      id: rowKey,
+    }).then(() => {
+      console.log("Document successfully written!");
+    });
+  }
+
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
   const [dataSource, setDataSource] = useState<readonly DataSourceType[]>([]);
   const [position, setPosition] = useState<"top" | "bottom" | "hidden">(
-    "bottom"
+    "top"
   );
 
   const columns: ProColumns<DataSourceType>[] = [
     {
-      title: "年份",
+      title: "年度",
       dataIndex: "year",
       valueType: "digit",
+      width: "10%",
+      sorter: (a, b) => a.year - b.year,
     },
     {
       title: "季度",
       valueType: "select",
       key: "quarter",
+      width: "15%",
       dataIndex: "quarter",
       valueEnum: {
         Q1: {
@@ -86,7 +98,8 @@ export default () => {
     },
     {
       title: "檔案連結",
-      tooltip: "如果使用 google drive, 請用連結網站將分享用的網址轉換成直接下載用的網址 https://sites.google.com/site/gdocs2direct/",
+      tooltip:
+        "如果使用 google drive, 請用連結網站將分享用的網址轉換成直接下載用的網址 https://sites.google.com/site/gdocs2direct/",
       valueType: "text",
       key: "url",
       dataIndex: "url",
@@ -102,33 +115,31 @@ export default () => {
             action?.startEditable?.(record.id);
           }}
         >
-          编辑
+          編輯
         </a>,
         <a
           key="delete"
           onClick={() => {
             setDataSource(dataSource.filter((item) => item.id !== record.id));
-            const docRef = doc(db, "finance-data", record.id.toString());
-            deleteDoc(docRef).then(() => {
-              console.log("Document successfully deleted!");
-            });
+            handleDelete(record.id as string);
           }}
         >
-          删除
+          刪除
         </a>,
       ],
     },
   ];
 
   return (
-    <>
+    <> 
       <EditableProTable<DataSourceType>
         rowKey="id"
-        headerTitle="可编辑表格"
+        headerTitle="財務資訊"
         maxLength={300}
         scroll={{
           x: 960,
         }}
+        // @ts-ignore Error occurs when the props not adding questionmark
         recordCreatorProps={
           position !== "hidden"
             ? {
@@ -147,7 +158,7 @@ export default () => {
             }}
             options={[
               {
-                label: "添加到顶部",
+                label: "添加到頂部",
                 value: "top",
               },
               {
@@ -155,7 +166,7 @@ export default () => {
                 value: "bottom",
               },
               {
-                label: "隐藏",
+                label: "隱藏",
                 value: "hidden",
               },
             ]}
@@ -173,19 +184,14 @@ export default () => {
           type: "multiple",
           editableKeys,
           onSave: async (rowKey, data, row) => {
-            addDoc(collection(db, "finance-data"), {
-              ...data,
-              id: rowKey,
-            }).then(() => {
-              console.log("Document successfully written!");
-            });
+            handleAdd(rowKey, data, row);
             console.log(rowKey, data, row);
             await waitTime(2000);
           },
           onChange: setEditableRowKeys,
         }}
       />
-      <ProCard title="表格数据" headerBordered collapsible defaultCollapsed>
+      <ProCard title="表格數據" headerBordered collapsible defaultCollapsed>
         <ProFormField
           ignoreFormItem
           fieldProps={{
