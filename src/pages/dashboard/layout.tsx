@@ -13,6 +13,7 @@ import defaultProps from "./_defaultProps";
 import Finance from "./table/finance";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
+import Director from "./table/director";
 
 export default () => {
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
@@ -156,7 +157,7 @@ export default () => {
         >
           <>
             {pathname === "/list/stakeholders/finance" && <Finance />}
-            {pathname === "/list/stakeholders/meeting" && <Finance />}
+            {pathname === "/list/stakeholders/meeting" && <Director />}
             {pathname === "/list/stakeholders/meeting-members" && <Finance />}
           </>
         </ProCard>

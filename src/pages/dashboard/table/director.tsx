@@ -23,12 +23,12 @@ const waitTime = (time: number = 100) => {
   });
 };
 
-const tableName = "finance-data";
+const tableName = "director-data";
 
 type tableType = {
-  year: number;
-  source: string;
-  title: string;
+  name: string;
+  experiences: string;
+  index: number;
 };
 
 type DataSourceType = {
@@ -65,47 +65,28 @@ export default () => {
 
   const [editableKeys, setEditableRowKeys] = useState<React.Key[]>([]);
   const [dataSource, setDataSource] = useState<readonly DataSourceType[]>([]);
-  const [position, setPosition] = useState<"top" | "bottom" | "hidden">(
-    "top"
-  );
+  const [position, setPosition] = useState<"top" | "bottom" | "hidden">("top");
 
   const columns: ProColumns<DataSourceType>[] = [
     {
-      title: "年度",
-      dataIndex: "year",
+      title: "排序",
+      tooltip: "數字越小越靠前",
+      dataIndex: "index",
       valueType: "digit",
-      width: "10%",
-      sorter: (a, b) => a.year - b.year,
+      sorter: (a, b) => a.index - b.index,
     },
     {
-      title: "季度",
-      valueType: "select",
-      width: "15%",
-      dataIndex: "title",
-      valueEnum: {
-        Q1: {
-          text: "Q1",
-        },
-        Q2: {
-          text: "Q2",
-        },
-        Q3: {
-          text: "Q3",
-        },
-        合併財報: {
-          text: "合併財報",
-        },
-        個體財報: {
-          text: "個體財報",
-        },
-      },
-    },
-    {
-      title: "檔案連結",
-      tooltip:
-        "如果使用 google drive, 請用連結網站將分享用的網址轉換成直接下載用的網址 https://sites.google.com/site/gdocs2direct/",
+      title: "姓名職稱",
+      dataIndex: "name",
       valueType: "text",
-      dataIndex: "source",
+      width: "15%",
+    },
+    {
+      title: "主要經歷",
+      valueType: "textarea",
+      tooltip: "請使用逗號分隔，如：大學博士, 企業老闆",
+      width: "60%",
+      dataIndex: "experiences",
     },
     {
       title: "操作",
@@ -134,7 +115,7 @@ export default () => {
   ];
 
   return (
-    <> 
+    <>
       <EditableProTable<DataSourceType>
         rowKey="id"
         headerTitle="財務資訊"

@@ -56,7 +56,7 @@ export default {
               },
               {
                 path: 'meeting',
-                name: '股東會資訊',
+                name: '董事會成員背景',
                 icon: <CrownFilled />,
                 component: './Welcome',
               },
