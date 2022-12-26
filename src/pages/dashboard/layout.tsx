@@ -14,6 +14,7 @@ import Finance from "./table/finance";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import Director from "./table/director";
+import Meeting from "./table/meeting";
 
 export default () => {
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
@@ -158,7 +159,7 @@ export default () => {
           <>
             {pathname === "/list/stakeholders/finance" && <Finance />}
             {pathname === "/list/stakeholders/meeting" && <Director />}
-            {pathname === "/list/stakeholders/meeting-members" && <Finance />}
+            {pathname === "/list/stakeholders/meeting-members" && <Meeting />}
           </>
         </ProCard>
       </PageContainer>

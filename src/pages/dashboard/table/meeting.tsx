@@ -23,12 +23,14 @@ const waitTime = (time: number = 100) => {
   });
 };
 
-const tableName = "director-data";
+const tableName = "meeting-data";
 
 type tableType = {
+  year: string;
+  content: string;
+  date: string;
+  location: string;
   name: string;
-  experiences: string;
-  index: number;
 };
 
 type DataSourceType = {
@@ -55,9 +57,11 @@ export default () => {
   }
 
   function handleAdd(rowKey: any, data: DataSourceType, row: any) {
+    console.log("adding data", "=>", data);
+    // const dataCol = {data.year}
     addDoc(collection(db, tableName), {
       ...data,
-      experiences: data.experiences.replaceAll("\n", "\\n")
+      content: data.content.replaceAll("\n", "\\n"),
       // id: rowKey,
     }).then(() => {
       console.log("Document successfully written!");
@@ -70,24 +74,34 @@ export default () => {
 
   const columns: ProColumns<DataSourceType>[] = [
     {
-      title: "排序",
-      tooltip: "數字越小越靠前",
-      dataIndex: "index",
-      valueType: "digit",
-      sorter: (a, b) => a.index - b.index,
+      title: "年度",
+      dataIndex: "year",
+      valueType: "dateYear",
+      width: "10%",
+      sorter: (a, b) => parseInt(a.year) - parseInt(b.year),
     },
     {
-      title: "姓名職稱",
-      dataIndex: "name",
+      title: "名稱",
       valueType: "text",
       width: "15%",
+      dataIndex: "name",
     },
     {
-      title: "主要經歷",
+      title: "日期",
+      width: "15%",
+      valueType: "text",
+      dataIndex: "date",
+    },
+    {
+      title: "地點",
+      width: "15%",
+      valueType: "text",
+      dataIndex: "location",
+    },
+    {
+      title: "內容",
       valueType: "textarea",
-      tooltip: "如需換行請使用空白鍵",
-      width: "60%",
-      dataIndex: "experiences",
+      dataIndex: "content",
     },
     {
       title: "操作",
