@@ -42,8 +42,9 @@ const querySnapshot = await getDocs(collection(db, tableName));
 const defaultData: DataSourceType[] = [];
 
 querySnapshot.forEach((doc) => {
+  const data = doc.data() as tableType;
   defaultData.push({
-    ...(doc.data() as tableType),
+    ...(data), content: data.content.replaceAll("\\n", "\n"),
     id: doc.id as React.Key,
   });
 });
