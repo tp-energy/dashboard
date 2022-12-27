@@ -16,6 +16,10 @@ import { auth } from "../../firebase";
 import Director from "./table/director";
 import Meeting from "./table/meeting";
 import Holder from "./table/holder";
+import MeetingData from "./table/meetingData";
+import Explaination from "./table/explaination";
+import Management from "./table/management";
+import Regulation from "./table/regulation";
 
 export default () => {
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
@@ -162,10 +166,10 @@ export default () => {
             {pathname === "/list/stakeholders/dac-members" && <Director />}
             {pathname === "/list/stakeholders/meeting-info" && <Meeting />}
             {pathname === "/list/stakeholders/holder-members" && <Holder />}
-            {pathname === "/list/stakeholders/meeting-data" && <Meeting />}
-            {pathname === "/list/stakeholders/explaination" && <Meeting />}
-            {pathname === "/list/stakeholders/maintainance-data" && <Meeting />}
-            {pathname === "/list/stakeholders/regulation-data" && <Meeting />}
+            {pathname === "/list/stakeholders/meeting-data" && <MeetingData />}
+            {pathname === "/list/stakeholders/explaination" && <Explaination />}
+            {pathname === "/list/stakeholders/maintainance-data" && <Management />}
+            {pathname === "/list/stakeholders/regulation-data" && <Regulation />}
             
           </>
         </ProCard>
