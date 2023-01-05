@@ -20,6 +20,7 @@ import MeetingData from "./table/meetingData";
 import Explaination from "./table/explaination";
 import Management from "./table/management";
 import Regulation from "./table/regulation";
+import Welcome from "./Welcome";
 
 export default () => {
   const [pathname, setPathname] = useState("/list/sub-page/sub-sub-page1");
@@ -61,11 +62,13 @@ export default () => {
         },
       }}
       {...defaultProps}
+      logo="./logo.svg"
+      title="天方能源後台"
       location={{
         pathname,
       }}
       avatarProps={{
-        src: "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg",
+        src: "./logo.svg",
         size: "small",
         title: "天方能源",
       }}
@@ -124,7 +127,7 @@ export default () => {
               paddingBlockStart: 12,
             }}
           >
-            Power by Ant Design
+            Power by TPEnergy
           </p>
         );
       }}
@@ -142,8 +145,8 @@ export default () => {
     >
       <PageContainer
         extra={[
-          <Button key="3">操作</Button>,
-          <Button key="2">操作</Button>,
+          // <Button key="3">操作</Button>,
+          // <Button key="2">操作</Button>,
           <Button type="primary" key="1" onClick={handleLogout}>
             登出
           </Button>,
@@ -162,6 +165,7 @@ export default () => {
           }}
         >
           <>
+            {pathname === "/list/sub-page/sub-sub-page1" && <Welcome />}
             {pathname === "/list/stakeholders/finance" && <Finance />}
             {pathname === "/list/stakeholders/dac-members" && <Director />}
             {pathname === "/list/stakeholders/meeting-info" && <Meeting />}

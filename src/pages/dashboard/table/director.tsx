@@ -76,6 +76,7 @@ export default () => {
       dataIndex: "index",
       valueType: "digit",
       sorter: (a, b) => a.index - b.index,
+      defaultSortOrder: "ascend",
     },
     {
       title: "姓名職稱",

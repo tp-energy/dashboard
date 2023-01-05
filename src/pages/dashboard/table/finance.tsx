@@ -76,6 +76,7 @@ export default () => {
       valueType: "digit",
       width: "10%",
       sorter: (a, b) => a.year - b.year,
+      defaultSortOrder: "descend",
     },
     {
       title: "季度",

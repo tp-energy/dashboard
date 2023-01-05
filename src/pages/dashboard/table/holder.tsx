@@ -120,7 +120,7 @@ export default () => {
     <>
       <EditableProTable<DataSourceType>
         rowKey="id"
-        headerTitle="財務資訊"
+        headerTitle="主要股東名單(請直接移除不需要的欄位)"
         maxLength={300}
         scroll={{
           x: 960,

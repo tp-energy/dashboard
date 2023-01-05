@@ -75,6 +75,7 @@ export default () => {
       valueType: "digit",
       width: "10%",
       sorter: (a, b) => a.index - b.index,
+      defaultSortOrder: "ascend",
     },
     {
       title: "標題",

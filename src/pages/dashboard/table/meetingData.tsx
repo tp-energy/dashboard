@@ -78,6 +78,7 @@ export default () => {
       valueType: "dateYear",
       width: "10%",
       sorter: (a, b) => parseInt(a.year) - parseInt(b.year),
+      defaultSortOrder: "descend",
     },
     {
       title: "標題",
