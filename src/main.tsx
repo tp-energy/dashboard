@@ -11,19 +11,16 @@ import "./index.css";
 import "./reset.css";
 import Dashboard from "./pages/dashboard/dashboard";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Dashboard />,
   },
   {
     path: "/login",
     element: <LoginForm />,
   },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
