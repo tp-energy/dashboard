@@ -28,7 +28,8 @@ export default () => {
   function handleLogout() {
     signOut(auth)
       .then(() => {
-        console.log("Sign out successful");
+        // console.log("Sign out successful");
+        alert("成功登出")
       })
       .catch((err) => {
         console.log("Sign out failed", err);
@@ -70,7 +71,7 @@ export default () => {
       avatarProps={{
         src: "./logo.svg",
         size: "small",
-        title: "天方能源",
+        title: auth.currentUser?.email,
       }}
       actionsRender={(props) => {
         if (props.isMobile) return [];
@@ -113,9 +114,9 @@ export default () => {
               />
             </div>
           ) : undefined,
-          <InfoCircleFilled key="InfoCircleFilled" />,
-          <QuestionCircleFilled key="QuestionCircleFilled" />,
-          <GithubFilled key="GithubFilled" />,
+          // <InfoCircleFilled key="InfoCircleFilled" />,
+          // <QuestionCircleFilled key="QuestionCircleFilled" />,
+          // <GithubFilled key="GithubFilled" />,
         ];
       }}
       menuFooterRender={(props) => {

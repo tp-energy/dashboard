@@ -4,6 +4,6 @@ type Props = {}
 
 export default function Welcome({}: Props) {
   return (
-    <div>Welcome</div>
+    <div>請由側邊欄選取項目進行修改</div>
   )
 }
